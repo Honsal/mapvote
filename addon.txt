@@ -1,0 +1,7 @@
+// Extracted with MulleDK19's GMAD Extractor
+"AddonInfo"
+{
+	"name" "MapVote"
+	"author_name" "Unknown"
+	"info" "A Fretta-Like Mapvote System.  Works out of the box with TTT and Deathrun."
+}
