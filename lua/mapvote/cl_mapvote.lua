@@ -23,6 +23,7 @@ surface.CreateFont("RAM_VoteSysButton",
 
 MapVote.EndTime = 0
 MapVote.Panel = false
+MapVote.RatioLimit = 2/3
 
 net.Receive("RAM_MapVoteStart", function()
     MapVote.CurrentMaps = {}
@@ -253,7 +254,7 @@ function PANEL:SetMaps(maps)
 	local cnt = 0
 	
 	for i, v in pairs(maps) do
-		if (v.Ratio >= 0.85) then
+		if (v.Ratio >= MapVote.RatioLimit) then
 			cnt = cnt + 1
 		end
 	end
@@ -264,12 +265,12 @@ function PANEL:SetMaps(maps)
         button:SetText(v.Map)
         
         button.DoClick = function()
-			if (v.Ratio <= 0.85) then
+			if (v.Ratio <= MapVote.RatioLimit) then
 				net.Start("RAM_MapVoteUpdate")
 					net.WriteUInt(MapVote.UPDATE_VOTE, 3)
 					net.WriteUInt(button.ID, 32)
 				net.SendToServer()
-			elseif (v.Ratio > 0.85 && cnt > 4) then
+			elseif (v.Ratio > MapVote.RatioLimit && cnt > 4) then
 				net.Start("RAM_MapVoteUpdate")
 					net.WriteUInt(MapVote.UPDATE_VOTE, 3)
 					net.WriteUInt(button.ID, 32)

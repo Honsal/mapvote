@@ -2,9 +2,9 @@ RTV = RTV or {}
 
 RTV.ChatCommands = {
 	
-	-- "!rtv",
-	-- "/rtv",
-	-- "rtv"
+	"!rtv",
+	"/rtv",
+	"rtv"
 
 }
 
@@ -17,7 +17,7 @@ RTV._ActualWait = CurTime() + RTV.Wait
 RTV.PlayerCount = MapVote.Config.RTVPlayerCount or 3
 
 function RTV.ShouldChange()
-	return RTV.TotalVotes >= math.Round(#player.GetAll()*0.45)
+	return RTV.TotalVotes >= math.Round(#player.GetAll()*(2/3))
 end
 
 function RTV.RemoveVote()
@@ -54,7 +54,7 @@ function RTV.AddVote( ply )
 		RTV.TotalVotes = RTV.TotalVotes + 1
 		ply.RTVoted = true
 		MsgN( ply:Nick().." has voted to Rock the Vote." )
-		PrintMessage( HUD_PRINTTALK, ply:Nick().." has voted to Rock the Vote. ("..RTV.TotalVotes.."/"..math.Round(#player.GetAll()*0.45)..")" )
+		PrintMessage( HUD_PRINTTALK, "Someone has voted to Rock the Vote. ("..RTV.TotalVotes.."/"..math.Round(#player.GetAll()*0.66)..")" )
 
 		if RTV.ShouldChange() then
 			RTV.Start()
